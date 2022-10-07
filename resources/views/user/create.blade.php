@@ -4,7 +4,7 @@
 
     <div class="container-fluid col-lg-5">
         
-        <form action="{{ route('employees.store') }}" method="post" enctype="multipart/form-data"><br>
+        <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data"><br>
 
             <h3>Add Employee</h3><br>
 

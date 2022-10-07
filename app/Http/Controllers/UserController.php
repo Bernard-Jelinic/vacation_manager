@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -28,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('user.create', ['departments' => $departments]);
     }
 
     /**
@@ -39,7 +41,8 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        User::create($request->all());
+        return redirect()->route('user.index');
     }
 
     /**
