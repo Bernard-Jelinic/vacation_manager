@@ -77,7 +77,7 @@
                             <li><a href="{{route('departments.create')}}">Add Department</a></li>
                             <li><a href="{{route('departments.index')}}">Manage Departments</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     
                     <li class="sub-menu">
                         <a href="javascript:;" >
@@ -85,12 +85,12 @@
                             <span>Employees</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="{{route('employees.create')}}">Add Employee</a></li>
-                            <li><a href="{{route('employees.index')}}">Manage Employee</a></li>
+                            <li><a href="{{route('user.create')}}">Add Employee</a></li>
+                            <li><a href="{{route('user.index')}}">Manage Employee</a></li>
                         </ul>
                     </li>
                     
-                    <li class="sub-menu">
+                    {{-- <li class="sub-menu">
                         <a href="javascript:;" >
                             <i class="fa fa-compass"></i>
                             <span>Vacations</span>
@@ -102,7 +102,7 @@
                             <li><a href="{{route('admin.vacations', 'approved')}}">Approved Vacations</a></li>
                             <li><a href="{{route('admin.vacations', 'notapproved')}}">Not Approved Vacations</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li class="sub-menu">
                         <a href="{{ route('logout') }}"
@@ -111,7 +111,7 @@
                             <i class="fa fa-sign-out"></i>
                             <span>Logout</span>
                         </a>
-                    </li> --}}
+                    </li>
 
                 </ul>
                 <!-- sidebar menu end-->
@@ -128,12 +128,9 @@
 
                 @yield('dashboard')
 
+                @yield('user.index')
+                @yield('user.create')
                 @yield('user.edit')
-
-                @yield('employees.index')
-                @yield('employees.create')
-                @yield('employees.edit')
-
 
                 @yield('departments.index')
                 @yield('departments.create')
@@ -150,7 +147,7 @@
         </section>
     </section>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
 
         $(document).ready(function(){
 
@@ -215,6 +212,6 @@
 
         })
 
-    </script>
+    </script> --}}
 
 @endsection

@@ -1,6 +1,6 @@
-@extends('dashboards.admins.index')
+@extends('index')
 
-@section('employees.create')
+@section('user.create')
 
     <div class="container-fluid col-lg-5">
         
