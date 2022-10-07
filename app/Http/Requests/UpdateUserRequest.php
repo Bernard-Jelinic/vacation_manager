@@ -26,7 +26,8 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'last_name' => 'required|regex:/^[\pL\s\-]+$/u',
-            'email' => 'required|email|unique:users',
+            'email' => 'unique:users,email,'.$this->user->id,
+            'password' => 'confirmed'
         ];
     }
 }

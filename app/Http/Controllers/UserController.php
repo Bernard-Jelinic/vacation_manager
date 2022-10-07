@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
@@ -70,7 +71,17 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->all();
+
+        if (isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.edit', $user->id);
     }
 
     /**
