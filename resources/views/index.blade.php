@@ -62,7 +62,7 @@
                     </li>
 
                     <li class="sub-menu">
-                        <a href="{{ route('user.edit', Auth::user()->id) }}">
+                        <a href="{{ route('userprofile.edit', Auth::user()->id) }}">
                             <i class="fa fa-user"></i>
                             <span>User profile</span>
                         </a>
@@ -127,6 +127,8 @@
             <section class="wrapper">
 
                 @yield('dashboard')
+
+                @yield('userprofile.edit')
 
                 @yield('user.index')
                 @yield('user.create')

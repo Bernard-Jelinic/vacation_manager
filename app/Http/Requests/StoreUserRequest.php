@@ -27,7 +27,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'last_name' => 'required|regex:/^[\pL\s\-]+$/u',
             'role' => 'required|alpha',
-            'department_id' => 'required|numeric',
+            'department_id' => 'numeric',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
         ];

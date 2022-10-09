@@ -2,6 +2,27 @@
 
 @section('user.create')
 
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+
+            if ($("#role option:selected").val() == 'admin') {
+                $("#show").hide();
+            }
+
+            $("#role").change(function() {
+
+                if (this.value == 'admin') {
+                    $("#show").hide();
+                }else{
+                    $("#show").show();
+                }
+            });
+
+        });
+
+    </script>
+
     <div class="container-fluid col-lg-5">
         
         <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data"><br>
@@ -34,7 +55,7 @@
                 <label>Role *</label>
                 <select class="form-control @error('role') error-border @enderror" id="role" name="role" required>
                     <option>Select role</option>
-                    {{-- <option value="admin">Admin</option> --}}
+                    <option value="admin">Admin</option>
                     <option value="manager">Manager</option>
                     <option value="user">User</option>
                 </select>
@@ -46,14 +67,21 @@
                 @enderror
             </div>
             
-            <div class="form-group">
+            <div id="show" class="form-group">
                 <label>Department *</label>
-                <select class="form-control @error('department_id') error-border @enderror" id="department_id" name="department_id" required>
+                <select class="form-control @error('department_id') error-border @enderror" id="department_id" name="department_id">
                     <option>Select department</option>
 
                     @foreach ($departments as $department)
                         <option value="{{$department->id}}">{{$department->name}}</option>
                     @endforeach
+
+                    @error('department_id')
+                        <div class="error-text">
+                            {{-- {{ $message }} --}}
+                            {{ 'The department must be selected.' }}
+                        </div>
+                    @enderror
 
                 </select>
                 @error('department_id')
