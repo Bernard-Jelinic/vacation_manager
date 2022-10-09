@@ -68,16 +68,16 @@
                         </a>
                     </li>
                     
-                    {{-- <li class="sub-menu">
+                    <li class="sub-menu">
                         <a href="javascript:;" >
                             <i class="fa fa-th"></i>
-                            <span>Department</span>
+                            <span>Departments</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="{{route('departments.create')}}">Add Department</a></li>
-                            <li><a href="{{route('departments.index')}}">Manage Departments</a></li>
+                            <li><a href="{{route('department.create')}}">Add Department</a></li>
+                            <li><a href="{{route('department.index')}}">Manage Departments</a></li>
                         </ul>
-                    </li> --}}
+                    </li>
                     
                     <li class="sub-menu">
                         <a href="javascript:;" >
@@ -134,9 +134,9 @@
                 @yield('user.create')
                 @yield('user.edit')
 
-                @yield('departments.index')
-                @yield('departments.create')
-                @yield('departments.edit')
+                @yield('department.index')
+                @yield('department.create')
+                @yield('department.edit')
 
                 @yield('vacations')
                 @yield('vacations.edit')

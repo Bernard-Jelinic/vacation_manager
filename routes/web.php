@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserprofileController;
 
 /*
@@ -26,5 +27,7 @@ Route::get('/dashboard', function () {
 Route::resource('user', UserController::class);
 
 Route::resource('userprofile', UserprofileController::class)->only('edit', 'update');
+
+Route::resource('department', DepartmentController::class);
 
 require __DIR__.'/auth.php';

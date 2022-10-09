@@ -1,9 +1,9 @@
-@extends('dashboards.admins.index')
+@extends('index')
 
-@section('departments.create')
+@section('department.create')
 
     <div class="container-fluid col-lg-5">
-        <form action="{{ route('departments.store') }}" method="post" enctype="multipart/form-data"><br>
+        <form action="{{ route('department.store') }}" method="post" enctype="multipart/form-data"><br>
 
             <h3>Add New Department</h3><br>
 
@@ -22,9 +22,9 @@
                 <select class="form-control @error('user_id') error-border @enderror" id="user_id" name="user_id">
                     <option>Select departments manager</option>
 
-                    @foreach ($managers as $manager)
+                    {{-- @foreach ($managers as $manager)
                         <option value="{{$manager->id}}">{{$manager->name . ' ' .$manager->last_name}}</option>
-                    @endforeach
+                    @endforeach --}}
 
                 </select>
             </div>

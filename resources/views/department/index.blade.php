@@ -1,6 +1,6 @@
-@extends('dashboards.admins.index')
+@extends('index')
 
-@section('departments.index')
+@section('department.index')
 
     <div class="container-fluid">
         <br>
@@ -21,11 +21,11 @@
                         <tr><td>{{$department->department_name}}</td><td>{{$department->manager_name}}</td>
                         {{-- <tr><td>{{$department['department_name']}}</td><td>{{$department['manager_name']}}</td> --}}
                             <td>
-                                <a href="{{ route('departments.edit', [$department->id]) }}">
+                                <a href="{{ route('department.edit', [$department->id]) }}">
                                     {{-- <a href="{{ route('editdepartment', [$department['id']]) }}"> --}}
                                     <button class="btn-sm btn btn-success"><i class="fa fa-edit"></i> Edit</button>
                                 </a>
-                                <form action="{{ route('departments.destroy', [$department->id]) }}" method="post">
+                                <form action="{{ route('department.destroy', [$department->id]) }}" method="post">
                                 {{-- <form action="{{ route('deletedepartment', [$department['id']]) }}" method="post"> --}}
                                     @csrf
                                     @method('DELETE')
