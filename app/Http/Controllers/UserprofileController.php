@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Userprofile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateUserprofileRequest;
 
 class UserprofileController extends Controller
 {
@@ -64,11 +65,11 @@ class UserprofileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateUserprofileRequest  $request
      * @param  \App\Models\Userprofile  $userprofile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Userprofile $userprofile)
+    public function update(UpdateUserprofileRequest $request, Userprofile $userprofile)
     {
         $data = $request->only('name', 'last_name', 'email', 'password');
 
