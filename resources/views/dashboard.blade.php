@@ -2,7 +2,7 @@
 
 @section('dashboard')
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(document).ready(function(){
 
             fetchNotification();
@@ -51,7 +51,7 @@
             }, 3000);
 
         });
-    </script>
+    </script> --}}
 
     <div class="row">
         
