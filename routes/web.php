@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VacationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserprofileController;
 
@@ -29,5 +30,9 @@ Route::resource('user', UserController::class);
 Route::resource('userprofile', UserprofileController::class)->only('edit', 'update');
 
 Route::resource('department', DepartmentController::class);
+
+Route::resource('vacation', VacationController::class)->only('edit', 'update');
+
+Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
 
 require __DIR__.'/auth.php';

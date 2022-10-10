@@ -1,6 +1,6 @@
-@extends('dashboards.admins.index')
+@extends('index')
 
-@section('vacations')
+@section('vacation')
     
     <div class="container-fluid">
         <br>
@@ -24,9 +24,11 @@
                 @if ($vacations)
                     @foreach ($vacations as $vacation)
 
-                        <tr><td>{{$vacation->name}}</td>
+                        <tr><td>{{$vacation->user->name}}</td>
                         <td id="user_id" class="user_id" name="user_id" value="{{$vacation->id}}">{{$vacation->id}}</td>
-                        <td>{{$vacation->depart}}</td><td>{{$vacation->return}}</td><td>{{$vacation->formated_created_at}}</td>
+                        <td>{{$vacation->depart}}</td>
+                        <td>{{$vacation->return}}</td>
+                        <td>{{$vacation->created_at->format('Y-m-d')}}</td>
                         
                         <td>
                             @if ($vacation->status == 0)
@@ -41,7 +43,7 @@
 
                         </td>
                         <td>
-                            <a href="{{ route('vacations.edit', [$vacation->id]) }}">
+                            <a href="{{ route('vacation.edit', [$vacation->id]) }}">
                                 <button class="btn-sm btn btn-success"><i class="fa fa-edit"></i> Edit</button>
                             </a>
                         </td>

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacation extends Model
 {
@@ -19,7 +20,7 @@ class Vacation extends Model
         'status',
         'admin_read',
         'manager_read',
-        'employee_notified',
+        'employee_read',
         'user_id'
     ];
 

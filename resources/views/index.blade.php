@@ -90,19 +90,19 @@
                         </ul>
                     </li>
                     
-                    {{-- <li class="sub-menu">
+                    <li class="sub-menu">
                         <a href="javascript:;" >
                             <i class="fa fa-compass"></i>
                             <span>Vacations</span>
                         </a>
 
                         <ul class="sub">
-                            <li><a href="{{route('admin.vacations', 'all')}}">All Vacations</a></li>
-                            <li><a href="{{route('admin.vacations', 'pending')}}">Pending Vacations</a></li>
-                            <li><a href="{{route('admin.vacations', 'approved')}}">Approved Vacations</a></li>
-                            <li><a href="{{route('admin.vacations', 'notapproved')}}">Not Approved Vacations</a></li>
+                            <li><a href="{{route('vacation', 'all')}}">All Vacations</a></li>
+                            <li><a href="{{route('vacation', 'pending')}}">Pending Vacations</a></li>
+                            <li><a href="{{route('vacation', 'approved')}}">Approved Vacations</a></li>
+                            <li><a href="{{route('vacation', 'notapproved')}}">Not Approved Vacations</a></li>
                         </ul>
-                    </li> --}}
+                    </li>
 
                     <li class="sub-menu">
                         <a href="{{ route('logout') }}"
@@ -138,13 +138,9 @@
                 @yield('department.create')
                 @yield('department.edit')
 
-                @yield('vacations')
-                @yield('vacations.edit')
-                {{-- @yield('allvacations')
-                @yield('pendingvacations')
-                @yield('approvedvacations')
-                @yield('notapprovedvacations') --}}
-
+                @yield('vacation')
+                @yield('vacation.edit')
+                
             </section>
         </section>
     </section>

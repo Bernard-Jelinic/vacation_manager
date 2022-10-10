@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->integer('admin_read')->nullable();
             $table->integer('manager_read')->nullable();
-            $table->integer('employee_notified')->nullable();
+            $table->integer('employee_read')->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

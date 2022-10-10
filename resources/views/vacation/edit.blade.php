@@ -1,9 +1,9 @@
-@extends('dashboards.admins.index')
+@extends('index')
 
-@section('vacations.edit')
+@section('vacation.edit')
 
     <div class="container-fluid col-lg-5">
-        <form action="{{ route('vacations.update', $vacation->id) }}" method="post" enctype="multipart/form-data"><br>
+        <form action="{{ route('vacation.update', $vacation) }}" method="post" enctype="multipart/form-data"><br>
 
             <h3>Edit Vacation</h3><br>
 
