@@ -19,8 +19,8 @@ class VacationController extends Controller
         if ($display == 'all') {
 
             Vacation::query()->update(['' . Auth::user()->role . '_read' => 1]);
-            
-            $vacations = Vacation::with('user')->get();
+
+            $vacations = Vacation::with('user')->get();  
         } else {
             if ($display == 'pending') {
                 $get_status = 0;
@@ -31,7 +31,7 @@ class VacationController extends Controller
             }
 
             Vacation::where('status', $get_status)->update(['' . Auth::user()->role . '_read' => 1]);
-
+            
             $vacations = Vacation::with('user')->where('status', $get_status)->get();
         }
 
@@ -45,7 +45,7 @@ class VacationController extends Controller
      */
     public function create()
     {
-        //
+        return view('vacation.create');
     }
 
     /**
@@ -56,7 +56,30 @@ class VacationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //converting input to date because input is type string
+        $depart = date('Y-m-d', strtotime($request->input('depart')));
+        $return = date('Y-m-d', strtotime($request->input('return')));
+
+        $validated = $request->validate([
+            'depart' => 'required',
+            'return' => 'required',
+        ]);
+
+        $date = date("Y-m-d H:i:s");
+
+        Vacation::create([
+            'depart' => $depart,
+            'return' => $return,
+            'created_at' => $date,
+            'updated_at' => $date,
+            'status' => 0,
+            'admin_read' => 0,
+            'manager_read' => 0,
+            'employee_read' => 0,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return redirect()->route('vacation', 'all');
     }
 
     /**

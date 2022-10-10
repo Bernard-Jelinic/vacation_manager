@@ -31,7 +31,7 @@ Route::resource('userprofile', UserprofileController::class)->only('edit', 'upda
 
 Route::resource('department', DepartmentController::class);
 
-Route::resource('vacation', VacationController::class)->only('edit', 'update');
+Route::resource('vacation', VacationController::class)->only(['create', 'store', 'edit', 'update']);
 
 Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
 

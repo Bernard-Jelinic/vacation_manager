@@ -97,6 +97,7 @@
                         </a>
 
                         <ul class="sub">
+                            <li><a href="{{route('vacation.create')}}">Apply Vacation</a></li>
                             <li><a href="{{route('vacation', 'all')}}">All Vacations</a></li>
                             <li><a href="{{route('vacation', 'pending')}}">Pending Vacations</a></li>
                             <li><a href="{{route('vacation', 'approved')}}">Approved Vacations</a></li>
@@ -139,6 +140,7 @@
                 @yield('department.edit')
 
                 @yield('vacation')
+                @yield('vacation.create')
                 @yield('vacation.edit')
                 
             </section>
