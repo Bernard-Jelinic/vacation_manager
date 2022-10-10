@@ -24,14 +24,16 @@
 
             <div class="form-group">
                 <label>Departments Manager</label>
-                {{-- <?php dd($managers); ?> --}}
-
                 <select id="manager_id" name="manager_id" class="form-control">
                     <option>Select departments manager</option>
 
-                    {{-- @foreach ($managers as $manager)
-                        <option value="<?=$manager->id?>">{{$manager->name . ' ' . $manager->last_name}}</option>
-                    @endforeach --}}
+                    @foreach ($managers as $manager)
+                        @if ($current_department_manager)
+                        <option value="{{$manager->id}}" {{ $manager->id == $current_department_manager->id ? 'selected' : '' }}>{{$manager->name . ' ' . $manager->last_name}}</option>
+                        @else
+                            <option value="{{$manager->id}}">{{$manager->name . ' ' . $manager->last_name}}</option>
+                        @endif
+                    @endforeach
 
                 </select>
             </div>

@@ -51,4 +51,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class);
     }
+
+    public static function getManagers()
+    {
+        return User::select('id', 'name', 'last_name')
+            ->where('role', '=', 'manager')
+            ->get();
+    }
 }

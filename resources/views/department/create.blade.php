@@ -22,9 +22,9 @@
                 <select class="form-control @error('user_id') error-border @enderror" id="user_id" name="user_id">
                     <option>Select departments manager</option>
 
-                    {{-- @foreach ($managers as $manager)
+                    @foreach ($managers as $manager)
                         <option value="{{$manager->id}}">{{$manager->name . ' ' .$manager->last_name}}</option>
-                    @endforeach --}}
+                    @endforeach
 
                 </select>
             </div>
