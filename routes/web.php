@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserprofileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,7 @@ use App\Http\Controllers\UserprofileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
