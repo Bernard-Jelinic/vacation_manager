@@ -101,7 +101,7 @@
                         </a>
 
                         <ul class="sub">
-                            @can('manager_employee_area')
+                            @can('employee_area')
                             <li><a href="{{route('vacation.create')}}">Apply Vacation</a></li>
                             @endcan
                             <li><a href="{{route('vacation', 'all')}}">All Vacations</a></li>

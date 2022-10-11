@@ -17,7 +17,7 @@
         <table class="table table-striped table-hover">
 
             <thead>
-                <tr><th>User</th><th>User Id</th><th>Depart date</th><th>Return date</th><th>Date od application</th><th>Status</th><th>Action</th></tr>
+                <tr><th>User</th><th>User Id</th><th>Depart date</th><th>Return date</th><th>Date od application</th><th>Status</th>@can('admin_manager_area')<th>Action</th>@endcan</tr>
             </thead>
 
             <tbody>
@@ -42,11 +42,13 @@
                             @endif
 
                         </td>
+                        @can('admin_manager_area')
                         <td>
                             <a href="{{ route('vacation.edit', [$vacation->id]) }}">
                                 <button class="btn-sm btn btn-success"><i class="fa fa-edit"></i> Edit</button>
                             </a>
                         </td>
+                        @endcan
                         </tr>
 
                     @endforeach

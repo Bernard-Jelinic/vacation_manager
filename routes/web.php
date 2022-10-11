@@ -31,7 +31,8 @@ Route::resource('userprofile', UserprofileController::class)->only('edit', 'upda
 
 Route::resource('department', DepartmentController::class)->middleware('can:admin_area');
 
-Route::resource('vacation', VacationController::class)->only(['create', 'store', 'edit', 'update'])->middleware('can:manager_employee_area');
+Route::resource('vacation', VacationController::class)->only(['create', 'store'])->middleware('can:employee_area');
+Route::resource('vacation', VacationController::class)->only(['edit', 'update'])->middleware('can:admin_manager_area');
 
 Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
 
