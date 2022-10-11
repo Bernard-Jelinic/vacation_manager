@@ -51,7 +51,7 @@
             <div id="sidebar"  class="nav-collapse ">
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
-                    <h5 class="centered">Admin:</h5>
+                    <h5 class="centered">{{ ucfirst(Auth::user()->role) }}:</h5>
                     <h5 class="centered">{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</h5>
 
                     <li class="sub-menu">
