@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\UserVacationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacation extends Model
@@ -23,6 +24,11 @@ class Vacation extends Model
         'employee_read',
         'user_id'
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserVacationScope);
+    }
 
     public function user()
     {
