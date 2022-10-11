@@ -68,6 +68,7 @@
                         </a>
                     </li>
                     
+                    @can('admin_area')
                     <li class="sub-menu">
                         <a href="javascript:;" >
                             <i class="fa fa-th"></i>
@@ -78,7 +79,9 @@
                             <li><a href="{{route('department.index')}}">Manage Departments</a></li>
                         </ul>
                     </li>
-                    
+                    @endcan
+
+                    @can('admin_area')
                     <li class="sub-menu">
                         <a href="javascript:;" >
                             <i class="fa fa-users"></i>
@@ -89,6 +92,7 @@
                             <li><a href="{{route('user.index')}}">Manage Employee</a></li>
                         </ul>
                     </li>
+                    @endcan
                     
                     <li class="sub-menu">
                         <a href="javascript:;" >
@@ -97,7 +101,9 @@
                         </a>
 
                         <ul class="sub">
+                            @can('manager_employee_area')
                             <li><a href="{{route('vacation.create')}}">Apply Vacation</a></li>
+                            @endcan
                             <li><a href="{{route('vacation', 'all')}}">All Vacations</a></li>
                             <li><a href="{{route('vacation', 'pending')}}">Pending Vacations</a></li>
                             <li><a href="{{route('vacation', 'approved')}}">Approved Vacations</a></li>

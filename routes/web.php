@@ -25,13 +25,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('user', UserController::class);
+Route::resource('user', UserController::class)->middleware('can:admin_area');
 
 Route::resource('userprofile', UserprofileController::class)->only('edit', 'update');
 
-Route::resource('department', DepartmentController::class);
+Route::resource('department', DepartmentController::class)->middleware('can:admin_area');
 
-Route::resource('vacation', VacationController::class)->only(['create', 'store', 'edit', 'update']);
+Route::resource('vacation', VacationController::class)->only(['create', 'store', 'edit', 'update'])->middleware('can:manager_employee_area');
 
 Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
 
