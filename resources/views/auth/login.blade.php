@@ -1,57 +1,62 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            {{-- <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a> --}}
-        </x-slot>
+@extends('layouts.app')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('content')
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+<style>
+    body {
+        background-image: url("assets/img/pngtree-summer-beach-summer-vacation-advertising-background-image_162086.jpg");
+        height: 100vh;
+        background-size: cover;
+    }
 
-            <!-- Email Address -->
-            <div>
-                <x-input-label for="email" :value="__('Email')" />
+    .login_form{
+        width: 520px;
+        background: #333;
+        color: #fff;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%,100%);
+        box-sizing: border-box;
+        border-radius: 15px;
+        opacity: 0.9;
+    }
+</style>
 
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+<div class="login_form container-fluid col-lg-5">
 
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            </div>
+    <form method="POST" action="{{ route('login') }}"><br>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
+        <span style="font-size:12px;color:red;">
+            @if ($errors->all())
+                <div class="alert alert-danger text-center">
+                    @foreach ($errors->all() as $error)
+                        {{$error}}<br>
+                    @endforeach
+                </div>
+            @endif
+        </span>
 
-                <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+        <h3 class="centered">Login</h3><br>
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
+        @csrf
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+        <!-- Email Address -->
+        <div class="form-group">
+            <label>Email address</label>
+            <input id="email" type="email" placeholder="Enter email" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+        <!-- Password -->
+        <div class="form-group">
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+        </div>
+        
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 15px">{{ __('Login') }}</button>
+        </div>
 
-                <x-primary-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-primary-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+    </form>
+</div>
+
+@endsection
