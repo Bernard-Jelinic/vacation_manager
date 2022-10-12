@@ -51,6 +51,14 @@
             <div id="sidebar"  class="nav-collapse ">
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
+                    <p class="centered">
+                        @if ( Auth::user()->image !== NULL )
+                            <img src="{{ asset(Auth::user()->image) }}" class="img-circle" width="60">
+                        @else
+                            <img src=" {{ asset('assets/profilepictures/default.png') }} " class="img-circle" width="60">
+                        @endif
+                    </p>
+
                     <h5 class="centered">{{ ucfirst(Auth::user()->role) }}:</h5>
                     <h5 class="centered">{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</h5>
 

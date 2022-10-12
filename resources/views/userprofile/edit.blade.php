@@ -7,6 +7,14 @@
 
             <h3>User Profile</h3><br>
 
+            <div class="form-group centered">
+            @if ( $userprofile->image !== NULL )
+                <img src="{{ asset($userprofile->image) }}" class="img-circle" width="200">
+            @else
+                <img src="{{ asset('assets/profilepictures/default.png') }}" class="img-circle" width="200">
+            @endif
+            </div>
+
             <div class="form-group">
                 <label>Name</label>
                 <input value="{{$userprofile->name}}" id="name" type="text" class="form-control @error('name') error-border @enderror" placeholder="Employee name" name="name" autofocus>
@@ -55,6 +63,10 @@
                         {{ $message }}
                     </div>
                 @enderror
+            </div>
+
+            <div class="form-group">
+                <input type="file" class="form-control" name="image" />
             </div>
 
             @csrf

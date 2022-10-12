@@ -26,6 +26,7 @@ class UserProfile extends Authenticatable
         'department_id',
         'email',
         'password',
+        'image',
         'created_at',
         'updated_at',
     ];

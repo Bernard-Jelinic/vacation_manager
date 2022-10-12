@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Userprofile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateUserprofileRequest;
 
@@ -72,6 +73,19 @@ class UserprofileController extends Controller
     public function update(UpdateUserprofileRequest $request, Userprofile $userprofile)
     {
         $data = $request->only('name', 'last_name', 'email', 'password');
+
+        if ($request->file()) {
+
+            if(\File::exists(Auth::user()->image)) {
+                \File::delete(Auth::user()->image);
+            }
+
+            $imageName = time().'.'.$request->image->extension();
+            $publicPath = 'assets/profilepictures/';
+            $fullImagePath = $publicPath . $imageName;
+            $request->image->move(public_path($publicPath), $imageName);
+            $data['image'] = $fullImagePath;
+        }
 
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);

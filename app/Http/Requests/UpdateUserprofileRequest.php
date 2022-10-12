@@ -28,7 +28,8 @@ class UpdateUserprofileRequest extends FormRequest
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'last_name' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'unique:users,email,' . Auth::user()->id,
-            'password' => 'confirmed'
+            'password' => 'confirmed',
+            'image' => 'image|mimes:png,jpg,jpeg|max:2048'
         ];
     }
 }
