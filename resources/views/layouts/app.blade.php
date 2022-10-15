@@ -33,6 +33,164 @@
 
     <!-- END BOOTSTRAP -->
 
+    {{-- START PUSHER --}}
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('dbc2cfe8ebbac83814ed', {
+            cluster: 'eu',
+            encrypted: true
+        });
+        var channel = pusher.subscribe('vacation-channel');
+        channel.bind('vacation-event', function(data) {
+            //alert(JSON.stringify(data));
+            fetchNotification()
+        });
+
+        fetchNotification()
+
+        function fetchNotification(){
+            $.ajax({
+                type: "GET",
+                url: "{{url('api/fetchnotification')}}",
+                dataType: "json",
+                success: function(response){
+                    navbarNotification(response);
+                    sidebarNotification(response);
+                }
+            })
+        }
+
+        function navbarNotification(response){
+
+            let notificationNav = `
+            
+            <a data-toggle="dropdown" class="dropdown-toggle" id="notification">
+                ${(response.count > 0) ? `<i class="fa fa-bell"></i><span class="badge bg-theme" id="notification_num">${response.count}</span>` : `<i class="fa fa-bell-o"></i>`}
+            </a>
+            
+            <ul class="dropdown-menu extended inbox">
+                <div class="notify-arrow notify-arrow-green"></div>
+
+                ${(response.count >= 0) ? `<li><p class="green">You have ${response.count} pending vacations</p></li>` : `<li><p class="green">You don't have pending vacations</p></li>`}
+
+            `;
+            if (response.count >= 0) {
+                response.notifications.forEach(element => {
+
+                const str = element.created_at;
+                const [dateValue, timeValue] = str.split('T');
+
+                if ((element.admin_read == 1 && element.employee_read == 0) || (element.manager_read == 1 && element.employee_read == 0) ) {
+                    
+                    let message = ''
+                    if (element.status == 1) {
+                        message = ' has been approved'
+                    } else if(element.status == 2){
+                        message = ' has been not approved'
+                    }
+                    notificationNav += `
+                        <li>
+                            <a href="{{ route('vacation', 'all') }}">
+                                <span class="subject">
+                                    <span class="from">Your request created ${dateValue}</span>
+                                </span>
+                                <span class="subject">
+                                    <span class="from">${message}</span>
+                                </span>
+                            </a>
+                        </li>
+                    `;
+                } else{
+                    notificationNav += `
+                        <li>
+                            <a href="{{ url('vacation/${element.id}/edit') }}">
+                                <span class="subject">
+                                <span class="from">${element.user.name} ${element.user.last_name} send request</span>
+                                </span>
+                                <span class="subject">
+                                <span class="from">created ${dateValue}</span>
+                                </span>
+                            </a>
+                        </li>
+                    `;
+                }
+
+            });
+            }
+
+            notificationNav += `
+            
+                <li>
+                    <a href="{{ route('vacation' , 'all') }}">See all vacations</a>
+                </li>
+            </ul>
+
+            `;
+
+            $('#header_inbox_bar').html(notificationNav);
+        }
+
+        function sidebarNotification(response){
+            //  because it doesn't needs to be displayed if there is no notifications
+            if (response.notifications.length > 0) {
+                
+                let notificationWindow = '<h3>NOTIFICATIONS</h3>';
+
+                response.notifications.forEach(element => {
+
+                    const str = element.created_at;
+                    const [dateValue, timeValue] = str.split('T');
+
+                    if ((element.admin_read == 1 && element.employee_read == 0) || (element.manager_read == 1 && element.employee_read == 0) ) {
+                        let message = ''
+                        if (element.status == 1) {
+                            message = `Your request created ${dateValue} has been approved`
+                        } else if(element.status == 2){
+                            message = `Your request created ${dateValue} has been not approved`
+                        }
+                        notificationWindow += `
+                            <a href="{{ route('vacation', 'all') }}">
+                                <div class="desc">
+                                    <div class="details">
+                                        <p style="font-size:12px;color:black;">${message}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    }else{
+                        notificationWindow += `
+                            <a href="{{ url('vacation/${element.id}/edit') }}">
+                                <div class="desc">
+                                    <div class="details">
+                                        <p style="font-size:12px;color:black;">${element.user.name} ${element.user.last_name} send request</p>
+                                        <p style="font-size:12px;color:black;">created ${dateValue}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    }
+
+                });
+
+                $('#notification-box').addClass("col-lg-3 ds").html(notificationWindow);
+            }
+
+            setTimeout(() => {
+            try {
+                $('#notification-box').removeClass("col-lg-3 ds").text('');
+            } catch (error) {
+                //console.log(error);
+            }
+            }, 4000);
+        }
+
+    </script>
+    {{-- END PUSHER --}}
+
 </head>
 <body>
 

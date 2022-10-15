@@ -140,92 +140,41 @@
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
+                <div class="row">
 
-                @yield('dashboard')
+                    {{-- <div id="notification-box" class="col-lg-3 ds" style="position: absolute; z-index: 100; right: 0px;">
+                        <h3>NOTIFICATIONS</h3>
+                        <a href="#">
+                            <div class="desc">
+                                <div class="details">
+                                    <p style="font-size:12px;color:black;">Bernard Jelinić send request</p>
+                                    <p style="font-size:12px;color:black;">created 2022-10-15</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div> --}}
 
-                @yield('userprofile.edit')
+                    <div id="notification-box" style="position: absolute; z-index: 100; right: 0px;"></div>
+        
+                    @yield('dashboard')
 
-                @yield('user.index')
-                @yield('user.create')
-                @yield('user.edit')
+                    @yield('userprofile.edit')
 
-                @yield('department.index')
-                @yield('department.create')
-                @yield('department.edit')
+                    @yield('user.index')
+                    @yield('user.create')
+                    @yield('user.edit')
 
-                @yield('vacation')
-                @yield('vacation.create')
-                @yield('vacation.edit')
+                    @yield('department.index')
+                    @yield('department.create')
+                    @yield('department.edit')
+
+                    @yield('vacation')
+                    @yield('vacation.create')
+                    @yield('vacation.edit')
                 
+                </div>
             </section>
         </section>
     </section>
-
-    {{-- <script type="text/javascript">
-
-        $(document).ready(function(){
-
-            fetchNotification();
-            function fetchNotification(){
-
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('admin/fetchnotification')}}",
-                    dataType: "json",
-                    success: function(response){
-
-                        let notificationNav = `
-                        
-                        <a data-toggle="dropdown" class="dropdown-toggle" id="notification">
-                            ${(response.count > 0) ? `<i class="fa fa-bell"></i><span class="badge bg-theme" id="notification_num">${response.count}</span>` : `<i class="fa fa-bell-o"></i>`}
-                        </a>
-                        
-                        <ul class="dropdown-menu extended inbox">
-                            <div class="notify-arrow notify-arrow-green"></div>
-
-                            ${(response.count >= 0) ? `<li><p class="green">You have ${response.count} pending vacations</p></li>` : `<li><p class="green">You don't have pending vacations</p></li>`}
-
-                        `;
-                        if (response.count >= 0) {
-                            response.notifications.forEach(element => {
-
-                            const str = element.created_at;
-                            const [dateValue, timeValue] = str.split('T');
-
-                            notificationNav += `
-                                <li>
-                                    <a href="admin/vacations/${element.id}/edit">
-                                        <span class="subject">
-                                        <span class="from">${element.user.name} ${element.user.last_name} send request</span>
-                                        </span>
-                                        <span class="subject">
-                                        <span class="from">created ${dateValue}</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            `;
-                        });
-                        }
-
-
-                        notificationNav += `
-                        
-                            <li>
-                                <a href="admin/allvacations">See all vacations</a>
-                            </li>
-                        </ul>
-
-                        `;
-
-                        $('#header_inbox_bar').html(notificationNav);
-
-                    }
-                })
-
-            }
-
-        })
-
-    </script> --}}
 
 @endsection
