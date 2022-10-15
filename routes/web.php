@@ -20,19 +20,21 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => ['auth', 'verified']], function(){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::resource('user', UserController::class)->middleware('can:admin_area');
+    Route::resource('user', UserController::class)->middleware('can:admin_area');
 
-Route::resource('userprofile', UserprofileController::class)->only('edit', 'update');
+    Route::resource('userprofile', UserprofileController::class)->only('edit', 'update');
 
-Route::resource('department', DepartmentController::class)->middleware('can:admin_area');
+    Route::resource('department', DepartmentController::class)->middleware('can:admin_area');
 
-Route::resource('vacation', VacationController::class)->only(['create', 'store'])->middleware('can:employee_area');
-Route::resource('vacation', VacationController::class)->only(['edit', 'update'])->middleware('can:admin_manager_area');
+    Route::resource('vacation', VacationController::class)->only(['create', 'store'])->middleware('can:employee_area');
+    Route::resource('vacation', VacationController::class)->only(['edit', 'update'])->middleware('can:admin_manager_area');
 
-Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
+    Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
+});
 
 require __DIR__.'/auth.php';
