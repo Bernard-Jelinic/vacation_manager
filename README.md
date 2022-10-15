@@ -1,66 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Vacation Manager app
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+An app for vacation request are divided into three modules:
 
-## About Laravel
+    Admin module
+    Manager module
+    Employee module
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Admin Module details:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    Admin can view dashboard.
+    Admin can update user profile info.
+    Admin can add/update/delete department.
+    Admin can add/update/delete employee info.
+    Admin can manage the vacation request(approve and not approve).
+    Admin can view the vacation request history.
+    Every time when an employee applies for leave admin will get a notification.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Manager Module details:
 
-## Learning Laravel
+    Manager can view dashboard.
+    Manager can update user profile info.
+    Manager can manage the vacation request(approve and not approve) in his/her department.
+    Manager can view the vacation request history of his/her department.
+    Every time when an employee applies for leave manager will get a notification.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Employee Module:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    Employee can view dashboard.
+    Employee can update user profile info.
+    Employee can send vacation request.
+    Employee can view his/her vacation request history.
+    Every time when an manager/admin approve or not approve vacation request employee will get a notification.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Usage
 
-## Laravel Sponsors
+### Clone GitHub repo for this project locally
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+git clone https://github.com/Bernard-Jelinic/vacation_manager.git
+```
 
-### Premium Partners
+### cd into your project
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```
+cd vacation_manager
+```
 
-## Contributing
+### Install Composer Dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+composer install
+```
 
-## Code of Conduct
+### Create a copy of your .env file
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+cp .env.example .env
+```
 
-## Security Vulnerabilities
+### Generate an app encryption key
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+php artisan key:generate
+```
+
+### Create an empty database for our application
+
+Create an empty database for your project using the database tools you prefer.
+Just create an empty database here, the exact steps will depend on your system setup.
+
+### In the .env file, add database information to allow Laravel to connect to the database
+
+We will want to allow Laravel to connect to the database that you just created in the previous step. To do this, we must add the connection credentials in the .env file and Laravel will handle the connection from there.
+
+In the .env file fill in the DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, and DB_PASSWORD options to match the credentials of the database you just created. This will allow us to run migrations and seed the database in the next step.
+
+### Install Pusher Channels
+
+Create a Pusher account, if you have not already.
+When Composer is done, we will need to configure Laravel to use Pusher as its broadcast driver, to do this, open the .env file that is in the root directory of your Laravel installation. Update the values to correspond with the configuration below:
+
+```
+BROADCAST_DRIVER=pusher
+
+// Get the credentials from your pusher dashboard
+PUSHER_APP_ID=XXXXXX
+PUSHER_APP_ID=XXXXX
+PUSHER_APP_KEY=XXXXXXX
+PUSHER_APP_SECRET=XXXXXXX
+```
+
+### Migrations
+
+To create all the nessesary tables and columns, run the following
+
+```
+php artisan migrate
+```
+
+### Seeding The Database
+
+To add the dummy departments, users and vacations, run the following
+
+```
+php artisan db:seed
+```
+
+### Running Then App
+
+Upload the files to your document root, Valet folder or run
+
+```
+php artisan serve
+```
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Vacation Manager app is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
