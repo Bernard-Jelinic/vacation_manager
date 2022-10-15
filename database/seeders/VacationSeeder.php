@@ -15,7 +15,7 @@ class VacationSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::all();
+        $users = User::all()->where('role', '!=', 'admin');
         foreach ($users as $user) {
             Vacation::factory()->count(1)->create([
                 'user_id' => $user->id
