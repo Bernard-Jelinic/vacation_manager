@@ -14,7 +14,7 @@ Admin Module details:
     Admin can add/update/delete employee info.
     Admin can manage the vacation request(approve and not approve).
     Admin can view the vacation request history.
-    Every time when an employee applies for leave admin will get a notification.
+    Every time when an employee send vacation request, admin will get a notification.
 
 Manager Module details:
 
@@ -22,7 +22,7 @@ Manager Module details:
     Manager can update user profile info.
     Manager can manage the vacation request(approve and not approve) in his/her department.
     Manager can view the vacation request history of his/her department.
-    Every time when an employee applies for leave manager will get a notification.
+    Every time when an employee send vacation request, manager will get a notification.
 
 Employee Module:
 
@@ -84,7 +84,6 @@ When Composer is done, we will need to configure Laravel to use Pusher as its br
 BROADCAST_DRIVER=pusher
 
 // Get the credentials from your pusher dashboard
-PUSHER_APP_ID=XXXXXX
 PUSHER_APP_ID=XXXXX
 PUSHER_APP_KEY=XXXXXXX
 PUSHER_APP_SECRET=XXXXXXX
