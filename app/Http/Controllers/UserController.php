@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Department;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -41,7 +42,14 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        User::create($request->only('name', 'last_name', 'role', 'department_id', 'email', 'password'));
+
+        $user = $request->only('name', 'last_name', 'role', 'department_id', 'email', 'email_verified_at' ,'password', 'remember_token');
+
+        $user['email_verified_at'] = now();
+        $user['password'] = Hash::make($user['password']);
+        $user['remember_token'] = Str::random(10);
+
+        User::create($user);
         return redirect()->route('user.index')
                     ->with('success', 'User created successfully');
     }
