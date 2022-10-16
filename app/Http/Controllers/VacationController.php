@@ -79,7 +79,8 @@ class VacationController extends Controller
             'user_id' => Auth::user()->id,
         ]);
 
-        return redirect()->route('vacation', 'all');
+        return redirect()->route('vacation', 'all')
+                        ->with('success', 'Vacation created successfully');
     }
 
     /**
@@ -115,7 +116,8 @@ class VacationController extends Controller
     public function update(Request $request, Vacation $vacation)
     {
         $vacation->update($request->only('status'));
-        return redirect()->route('vacation', 'all');
+        return redirect()->route('vacation', 'all')
+                        ->with('success', 'Vacation updated successfully');
     }
 
     /**

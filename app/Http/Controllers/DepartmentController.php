@@ -66,7 +66,8 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         Department::create($request->only('name'));
-        return redirect('department');
+        return redirect('department')
+                ->with('success', 'Department created successfully');
     }
 
     /**
@@ -118,7 +119,8 @@ class DepartmentController extends Controller
             $user->save();
         }
 
-        return redirect('department');
+        return redirect('department')
+                ->with('success', 'Department updated successfully');
     }
 
     /**
@@ -130,6 +132,7 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         $department->delete();
-        return redirect('department');
+        return redirect('department')
+                ->with('success', 'Department deleted successfully');
     }
 }

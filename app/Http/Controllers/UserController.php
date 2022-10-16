@@ -42,7 +42,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         User::create($request->only('name', 'last_name', 'role', 'department_id', 'email', 'password'));
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')
+                    ->with('success', 'User created successfully');
     }
 
     /**
@@ -88,7 +89,8 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('user.edit', $user->id);
+        return redirect()->route('user.edit', $user->id)
+                        ->with('success', 'User updated successfully');
     }
 
     /**
@@ -100,6 +102,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')
+                        ->with('success', 'User deleted successfully');
     }
 }

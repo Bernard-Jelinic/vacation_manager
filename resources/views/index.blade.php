@@ -154,6 +154,10 @@
                         </a>
                     </div> --}}
 
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success" role="alert" style="position: absolute; z-index: 50; text-align: center; width: 100%;">{{ $message }}</div>
+                    @endif
+
                     <div id="notification-box" style="position: absolute; z-index: 100; right: 0px;"></div>
         
                     @yield('dashboard')
@@ -176,5 +180,15 @@
             </section>
         </section>
     </section>
+
+    <script type="text/javascript">
+        setTimeout(() => {
+            try {
+                $('.alert').remove()
+            } catch (error) {
+                
+            }
+        }, 4000);
+    </script>
 
 @endsection

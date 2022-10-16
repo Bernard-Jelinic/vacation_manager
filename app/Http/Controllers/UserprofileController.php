@@ -95,7 +95,8 @@ class UserprofileController extends Controller
 
         $userprofile->update($data);
 
-        return redirect()->route('userprofile.edit', $userprofile->id);
+        return redirect()->route('userprofile.edit', $userprofile->id)
+                        ->with('success', 'Userprofile updated successfully');
     }
 
     /**
