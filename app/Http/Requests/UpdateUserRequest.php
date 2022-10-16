@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'unique:users,email,' . Auth::user()->id,
             'password' => 'confirmed',
             'role' => 'required|alpha',
-            'department_id' => 'required|numeric'
+            'department_id' => 'nullable|numeric'
         ];
     }
 }

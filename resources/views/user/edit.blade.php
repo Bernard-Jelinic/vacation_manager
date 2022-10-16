@@ -71,7 +71,7 @@
                 <label>Employees Department * </label>
 
                 <select class="form-control @error('department_id') error-border @enderror" id="department_id" name="department_id" required>
-                    <option>Select department</option>
+                    <option value="">Select department</option>
 
                     @foreach ($departments as $department)
                         <option value="{{$department->id}}" {{$department->id == $user->department_id ? 'selected':''}}>{{$department->name}}</option>
