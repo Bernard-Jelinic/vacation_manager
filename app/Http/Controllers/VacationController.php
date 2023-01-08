@@ -35,7 +35,7 @@ class VacationController extends Controller
             $vacations = Vacation::with('user')->where('status', $get_status)->get();
         }
 
-        return view('vacation.index',['vacations' => $vacations, 'display' => $display]);
+        return view('vacation.index', compact('vacations', 'display'));
     }
 
     /**
@@ -103,7 +103,7 @@ class VacationController extends Controller
     public function edit(Vacation $vacation)
     {
         $vacation->update(['' . Auth::user()->role . '_read' => 1]);
-        return view('vacation.edit', ['vacation' => $vacation]);
+        return view('vacation.edit', compact('vacation'));
     }
 
     /**
