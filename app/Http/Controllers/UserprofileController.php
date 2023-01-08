@@ -60,7 +60,7 @@ class UserprofileController extends Controller
      */
     public function edit(Userprofile $userprofile)
     {
-        return view('userprofile.edit', ['userprofile' => $userprofile]);
+        return view('userprofile.edit', compact('userprofile'));
     }
 
     /**
