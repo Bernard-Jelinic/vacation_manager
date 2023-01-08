@@ -19,8 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
-        return view('user.index', ['users' => $users]);
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -31,7 +30,7 @@ class UserController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('user.create', ['departments' => $departments]);
+        return view('user.create', compact('departments'));
     }
 
     /**
@@ -74,8 +73,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $departments = Department::all();
-
-        return view('user.edit', ['user' => $user, 'departments' => $departments]);
+        return view('user.edit', compact('user', 'departments'));
     }
 
     /**
