@@ -15,13 +15,13 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        $departments_from_db = Department::all();
 
         $managers = User::all()->where('role', 'manager');
 
-        $depart_manag = array();
+        $departments = array();
 
-        foreach ($departments as $department) {
+        foreach ($departments_from_db as $department) {
 
             $data = array();
             $data = (object) $data;
@@ -40,10 +40,10 @@ class DepartmentController extends Controller
                 $data->manager_name = $managers_full_name;
             }
 
-            $depart_manag[] = $data;
+            $departments[] = $data;
         }
 
-        return view('department.index', ['departments' => $depart_manag]);
+        return view('department.index', compact('departments'));
     }
 
     /**
@@ -54,7 +54,7 @@ class DepartmentController extends Controller
     public function create()
     {
         $managers = User::getManagers();
-        return view('department.create', ['managers' => $managers]);
+        return view('department.create', compact('managers'));
     }
 
     /**
@@ -91,7 +91,7 @@ class DepartmentController extends Controller
     {
         $managers = User::getManagers();
         $current_department_manager = User::all()->where('department_id', $department->id)->where('role', 'manager')->first();
-        return view('department.edit', ['department' => $department, 'managers' => $managers, 'current_department_manager' => $current_department_manager]);
+        return view('department.edit', compact('department', 'managers', 'current_department_manager'));
     }
 
     /**
