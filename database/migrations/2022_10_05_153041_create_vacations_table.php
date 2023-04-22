@@ -21,7 +21,10 @@ return new class extends Migration
             $table->integer('admin_read')->nullable();
             $table->integer('manager_read')->nullable();
             $table->integer('employee_read')->nullable();
-            $table->integer('user_id')->nullable();
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
@@ -33,6 +36,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('vacations', function (Blueprint $table) {
+            $table->dropForeign('vacations_user_id_foreign');
+        });
         Schema::dropIfExists('vacations');
     }
 };
