@@ -10,7 +10,8 @@
     }
 
     .login_form{
-        width: 520px;
+        max-width: 520px;
+        width:100%;
         background: #333;
         color: #fff;
         left: 50%;
