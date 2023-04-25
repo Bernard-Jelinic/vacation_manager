@@ -19,7 +19,6 @@ class VacationFactory extends Factory
         return [
             'depart' => $this->faker->date(),
             'return' => $this->faker->date(),
-            'status' => $this->faker->numberBetween(0, 2),
             'admin_read' => $this->faker->boolean(),
             'manager_read' => $this->faker->boolean(),
             'employee_read' => $this->faker->boolean(),

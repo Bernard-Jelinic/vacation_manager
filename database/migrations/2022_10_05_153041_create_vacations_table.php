@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->date('depart');
             $table->date('return');
-            $table->integer('status')->nullable();
+
+            $table->unsignedInteger('status_id')->nullable();
+
             $table->integer('admin_read')->nullable();
             $table->integer('manager_read')->nullable();
             $table->integer('employee_read')->nullable();
