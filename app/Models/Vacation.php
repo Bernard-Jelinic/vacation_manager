@@ -18,7 +18,7 @@ class Vacation extends Model
         'return',
         'created_at',
         'updated_at',
-        'status',
+        'status_id',
         'admin_read',
         'manager_read',
         'employee_read',

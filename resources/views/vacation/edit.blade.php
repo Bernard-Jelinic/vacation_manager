@@ -33,21 +33,19 @@
                 
                         @csrf
                         @method('PUT')
-                        <select name="status" class="form-control">
-                            @if ($vacation->status == 0)
-                                <option value="0"selected>Waiting for approval</option>
-                                <option value="1">Approved</option>
-                                <option value="2">Not Approved</option>
-
-                            @elseif ($vacation->status == 1)
-                                <option value="0">Waiting for approval</option>
-                                <option value="1" selected>Approved</option>
-                                <option value="2">Not Approved</option>
-                                
+                        <select name="status_id" class="form-control">
+                            @if ($vacation->status_id == 1)
+                                <option value="1"selected>Waiting for approval</option>
+                                <option value="2">Approved</option>
+                                <option value="3">Not Approved</option>
+                            @elseif ($vacation->status_id == 2)
+                                <option value="1">Waiting for approval</option>
+                                <option value="2" selected>Approved</option>
+                                <option value="3">Not Approved</option>
                             @else
-                                <option value="0">Waiting for approval</option>
-                                <option value="1">Approved</option>
-                                <option value="2" selected>Not Approved</option>
+                                <option value="1">Waiting for approval</option>
+                                <option value="2">Approved</option>
+                                <option value="3" selected>Not Approved</option>
                             @endif
                         </select>
                             

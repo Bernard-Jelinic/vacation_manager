@@ -15,24 +15,23 @@ class VacationController extends Controller
      */
     public function index(Request $request, $display)
     {
-
         if ($display == 'all') {
 
             Vacation::query()->update(['' . Auth::user()->role . '_read' => 1]);
 
-            $vacations = Vacation::with('user')->get();  
+            $vacations = Vacation::with('user')->get();
         } else {
             if ($display == 'pending') {
-                $get_status = 0;
-            } elseif ($display == 'approved') {
                 $get_status = 1;
-            } elseif ($display == 'notapproved') {
+            } elseif ($display == 'approved') {
                 $get_status = 2;
+            } elseif ($display == 'notapproved') {
+                $get_status = 3;
             }
 
-            Vacation::where('status', $get_status)->update(['' . Auth::user()->role . '_read' => 1]);
+            Vacation::where('status_id', $get_status)->update(['' . Auth::user()->role . '_read' => 1]);
             
-            $vacations = Vacation::with('user')->where('status', $get_status)->get();
+            $vacations = Vacation::with('user')->where('status_id', $get_status)->get();
         }
 
         return view('vacation.index', compact('vacations', 'display'));
@@ -72,7 +71,7 @@ class VacationController extends Controller
             'return' => $return,
             'created_at' => $date,
             'updated_at' => $date,
-            'status' => 0,
+            'status_id' => 1,
             'admin_read' => 0,
             'manager_read' => 0,
             'employee_read' => 0,
@@ -115,7 +114,7 @@ class VacationController extends Controller
      */
     public function update(Request $request, Vacation $vacation)
     {
-        $vacation->update($request->only('status'));
+        $vacation->update($request->only('status_id'));
         return redirect()->route('vacation', 'all')
                         ->with('success', 'Vacation updated successfully');
     }

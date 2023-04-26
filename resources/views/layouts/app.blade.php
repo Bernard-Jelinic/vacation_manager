@@ -87,9 +87,9 @@
                 if ((element.admin_read == 1 && element.employee_read == 0) || (element.manager_read == 1 && element.employee_read == 0) ) {
                     
                     let message = ''
-                    if (element.status == 1) {
+                    if (element.status_id == 2) {
                         message = ' has been approved'
-                    } else if(element.status == 2){
+                    } else if(element.status_id == 3){
                         message = ' has been not approved'
                     }
                     notificationNav += `
@@ -147,9 +147,9 @@
 
                     if ((element.admin_read == 1 && element.employee_read == 0) || (element.manager_read == 1 && element.employee_read == 0) ) {
                         let message = ''
-                        if (element.status == 1) {
+                        if (element.status_id == 2) {
                             message = `Your request created ${dateValue} has been approved`
-                        } else if(element.status == 2){
+                        } else if(element.status_id == 3){
                             message = `Your request created ${dateValue} has been not approved`
                         }
                         notificationWindow += `

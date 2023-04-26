@@ -25,19 +25,19 @@
                     @foreach ($vacations as $vacation)
 
                         <tr><td>{{$vacation->user->name}}</td>
-                        <td id="user_id" class="user_id" name="user_id" value="{{$vacation->id}}">{{$vacation->id}}</td>
+                        <td id="user_id" class="user_id" name="user_id" value="{{$vacation->user_id}}">{{$vacation->user_id}}</td>
                         <td>{{$vacation->depart}}</td>
                         <td>{{$vacation->return}}</td>
                         <td>{{$vacation->created_at->format('Y-m-d')}}</td>
                         
                         <td>
-                            @if ($vacation->status == 0)
+                            @if ($vacation->status_id == 1)
                                 <span style="color: blue">waiting for approval</span>
 
-                            @elseif ($vacation->status == 1)
+                            @elseif ($vacation->status_id == 2)
                                 <span style="color: green">Approved</span>
                                 
-                            @elseif ($vacation->status == 2)
+                            @elseif ($vacation->status_id == 3)
                                 <span style="color: red">Not Approved</span>
                             @endif
 

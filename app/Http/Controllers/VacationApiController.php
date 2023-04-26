@@ -20,7 +20,7 @@ class VacationApiController extends Controller
             $status_operator = '!=';
         }
         
-        $notifications = Vacation::with('user')->where('status', $status_operator, 0)->where('' . Auth::user()->role . '_read', '=', 0)->get()->toArray();
+        $notifications = Vacation::with('user')->where('status_id', $status_operator, 1)->where('' . Auth::user()->role . '_read', '=', 0)->get()->toArray();
         //to display notification number
         $counter = count($notifications);
 
