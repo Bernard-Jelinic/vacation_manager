@@ -66,6 +66,7 @@
             </div>
 
             <div class="form-group">
+                <label>Change profile image</label>
                 <input type="file" class="form-control" name="image" />
             </div>
 
