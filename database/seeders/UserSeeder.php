@@ -27,9 +27,16 @@ class UserSeeder extends Seeder
 
         foreach ($roles_arr as $role) {
             foreach ($departments as $department) {
-                User::factory()->create(['role' => $role, 'department_id' => $department->id]);
+                $array = ['role' => $role, 'department_id' => $department->id];
+                if ($role == 'manager') {
+                    $response = User::where('role', 'admin')->first();
+                    $array['parent_id'] = $response->id;
+                } else {
+                    $response = User::where('department_id', $department->id)->first();
+                    $array['parent_id'] = $response->id;
+                }
+                User::factory()->create( $array );
             }
-
         };
     }
 }
