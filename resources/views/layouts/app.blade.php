@@ -34,21 +34,34 @@
     <!-- END BOOTSTRAP -->
 
     {{-- START PUSHER --}}
-    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script src="{{ asset('assets/js/pusher.min.js') }}"></script>
+    <script src="{{ asset('assets/js/echo.iife.js') }}"></script>
     <script>
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('dbc2cfe8ebbac83814ed', {
-            cluster: 'eu',
-            encrypted: true
-        });
-        var channel = pusher.subscribe('vacation-channel');
-        channel.bind('vacation-event', function(data) {
-            //alert(JSON.stringify(data));
-            fetchNotification()
-        });
+        @if (auth()->user())
+            window.Echo = new Echo({
+                broadcaster: 'pusher',
+                key: '{{ env('PUSHER_APP_KEY') }}',
+                cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+                encrypted: 'true',
+                authEndpoint: '{{ asset('broadcasting/auth') }}',
+                auth: {
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    }
+                }
+            })
+            // // for public channel
+            /*Echo.channel('notification.' + {{ auth()->user()->id }})*/
+            Echo.private('notification.' + {{ auth()->user()->id }})
+                .listen('.vacation-event', function(data) {
+                    alert( data )
+                    console.log( 'data', data )
+                })
+        @endif
 
         fetchNotification()
 

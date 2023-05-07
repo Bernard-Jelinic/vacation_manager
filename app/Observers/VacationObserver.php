@@ -15,7 +15,7 @@ class VacationObserver
     // public function created(Vacation $vacation)
     public function created(Vacation $vacation)
     {
-        event(new \App\Events\VacationEvent());
+        event(new \App\Events\VacationEvent(auth()->user()->id));
     }
 
     /**
