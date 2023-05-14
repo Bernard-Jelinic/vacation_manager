@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Vacation;
+use App\Notifications\VacationNotification;
+use Illuminate\Support\Facades\Notification;
 
 class VacationObserver
 {
@@ -15,7 +17,18 @@ class VacationObserver
     // public function created(Vacation $vacation)
     public function created(Vacation $vacation)
     {
-        event(new \App\Events\VacationEvent(auth()->user()->id));
+        $ancestors = auth()->user()->ancestors;
+
+        foreach ( $ancestors as $ancestor ) {
+            if ($ancestor->role == 'admin') {
+                $text = 'Employee ' . auth()->user()->name . ' from department ' . auth()->user()->department->name .  ' send request for vacation';
+            } else{
+                $text = 'Employee ' . auth()->user()->name . ' send request for vacation';
+            }
+            Notification::send($ancestor, new VacationNotification($text));
+            event(new \App\Events\VacationEvent($ancestor->id));
+        }
+
     }
 
     /**

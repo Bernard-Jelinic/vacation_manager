@@ -58,8 +58,9 @@
             /*Echo.channel('notification.' + {{ auth()->user()->id }})*/
             Echo.private('notification.' + {{ auth()->user()->id }})
                 .listen('.vacation-event', function(data) {
-                    alert( data )
-                    console.log( 'data', data )
+                    // alert( data )
+                    // console.log( 'data', data )
+                    this.fetchNotification()
                 })
         @endif
 
@@ -122,10 +123,10 @@
                         <li>
                             <a href="{{ url('vacation/${element.id}/edit') }}">
                                 <span class="subject">
-                                <span class="from">${element.user.name} ${element.user.last_name} send request</span>
+                                    <span class="from">${element.data.data}</span>
                                 </span>
                                 <span class="subject">
-                                <span class="from">created ${dateValue}</span>
+                                    <span class="from">created ${dateValue}</span>
                                 </span>
                             </a>
                         </li>
@@ -179,7 +180,7 @@
                             <a href="{{ url('vacation/${element.id}/edit') }}">
                                 <div class="desc">
                                     <div class="details">
-                                        <p style="font-size:12px;color:black;">${element.user.name} ${element.user.last_name} send request</p>
+                                        <p style="font-size:12px;color:black;">${element.data.data}</p>
                                         <p style="font-size:12px;color:black;">created ${dateValue}</p>
                                     </div>
                                 </div>

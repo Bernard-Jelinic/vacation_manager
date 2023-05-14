@@ -15,12 +15,8 @@ class VacationApiController extends Controller
      */
     public function index()
     {
-        $status_operator = '=';
-        if (Auth::user()->role =='employee') {
-            $status_operator = '!=';
-        }
-        
-        $notifications = Vacation::with('user')->where('status_id', $status_operator, 1)->where('' . Auth::user()->role . '_read', '=', 0)->get()->toArray();
+        $notifications = auth()->user()->notifications;
+
         //to display notification number
         $counter = count($notifications);
 
