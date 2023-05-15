@@ -98,40 +98,18 @@
                 const str = element.created_at;
                 const [dateValue, timeValue] = str.split('T');
 
-                if ((element.admin_read == 1 && element.employee_read == 0) || (element.manager_read == 1 && element.employee_read == 0) ) {
-                    
-                    let message = ''
-                    if (element.status_id == 2) {
-                        message = ' has been approved'
-                    } else if(element.status_id == 3){
-                        message = ' has been not approved'
-                    }
-                    notificationNav += `
-                        <li>
-                            <a href="{{ route('vacation', 'all') }}">
-                                <span class="subject">
-                                    <span class="from">Your request created ${dateValue}</span>
-                                </span>
-                                <span class="subject">
-                                    <span class="from">${message}</span>
-                                </span>
-                            </a>
-                        </li>
-                    `;
-                } else{
-                    notificationNav += `
-                        <li>
-                            <a href="{{ url('vacation/${element.id}/edit') }}">
-                                <span class="subject">
-                                    <span class="from">${element.data.data}</span>
-                                </span>
-                                <span class="subject">
-                                    <span class="from">created ${dateValue}</span>
-                                </span>
-                            </a>
-                        </li>
-                    `;
-                }
+                notificationNav += `
+                    <li>
+                        <a href="{{ url('vacation/${element.data.vacation_id}/edit') }}">
+                            <span class="subject">
+                                <span class="from">${element.data.data}</span>
+                            </span>
+                            <span class="subject">
+                                <span class="from">created ${dateValue}</span>
+                            </span>
+                        </a>
+                    </li>
+                `;
 
             });
             }
@@ -159,34 +137,16 @@
                     const str = element.created_at;
                     const [dateValue, timeValue] = str.split('T');
 
-                    if ((element.admin_read == 1 && element.employee_read == 0) || (element.manager_read == 1 && element.employee_read == 0) ) {
-                        let message = ''
-                        if (element.status_id == 2) {
-                            message = `Your request created ${dateValue} has been approved`
-                        } else if(element.status_id == 3){
-                            message = `Your request created ${dateValue} has been not approved`
-                        }
-                        notificationWindow += `
-                            <a href="{{ route('vacation', 'all') }}">
-                                <div class="desc">
-                                    <div class="details">
-                                        <p style="font-size:12px;color:black;">${message}</p>
-                                    </div>
+                    notificationWindow += `
+                        <a href="{{ url('vacation/${element.data.vacation_id}/edit') }}">
+                            <div class="desc">
+                                <div class="details">
+                                    <p style="font-size:12px;color:black;">${element.data.data}</p>
+                                    <p style="font-size:12px;color:black;">created ${dateValue}</p>
                                 </div>
-                            </a>
-                        `;
-                    }else{
-                        notificationWindow += `
-                            <a href="{{ url('vacation/${element.id}/edit') }}">
-                                <div class="desc">
-                                    <div class="details">
-                                        <p style="font-size:12px;color:black;">${element.data.data}</p>
-                                        <p style="font-size:12px;color:black;">created ${dateValue}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        `;
-                    }
+                            </div>
+                        </a>
+                    `;
 
                 });
 

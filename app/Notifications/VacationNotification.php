@@ -16,9 +16,10 @@ class VacationNotification extends Notification
      *
      * @return void
      */
-    public function __construct($text)
+    public function __construct($text, $vacation_id)
     {
         $this->text = $text;
+        $this->vacation_id = $vacation_id;
     }
 
     /**
@@ -55,7 +56,8 @@ class VacationNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => $this->text
+            'data' => $this->text,
+            'vacation_id' => $this->vacation_id
         ];
     }
 }
