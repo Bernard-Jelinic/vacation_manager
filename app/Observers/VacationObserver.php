@@ -39,8 +39,13 @@ class VacationObserver
      */
     public function updating(Vacation $vacation)
     {
-        $vacation->employee_read = 0;
-        event(new \App\Events\VacationEvent());
+        if (auth()->user()->role == 'admin') {
+            $text = 'Admin ' . auth()->user()->name . ' ' . $vacation->status->name . ' your request';
+        } else{
+            $text = 'Manager ' . auth()->user()->name . ' ' . $vacation->status->name . ' your request';
+        }
+        Notification::send($vacation->user, new VacationNotification($text));
+        event(new \App\Events\VacationEvent($vacation->user->id));
     }
 
     /**

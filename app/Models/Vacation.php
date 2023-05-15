@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\VacationStatus;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\UserVacationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,5 +34,10 @@ class Vacation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(VacationStatus::class);
     }
 }
