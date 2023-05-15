@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Vacation;
+use App\Events\VacationEvent;
 use App\Notifications\VacationNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -26,7 +27,7 @@ class VacationObserver
                 $text = 'Employee ' . auth()->user()->name . ' send request for vacation';
             }
             Notification::send($ancestor, new VacationNotification($text));
-            event(new \App\Events\VacationEvent($ancestor->id));
+            event(new VacationEvent($ancestor->id));
         }
 
     }
@@ -45,7 +46,7 @@ class VacationObserver
             $text = 'Manager ' . auth()->user()->name . ' ' . $vacation->status->name . ' your request';
         }
         Notification::send($vacation->user, new VacationNotification($text));
-        event(new \App\Events\VacationEvent($vacation->user->id));
+        event(new VacationEvent($vacation->user->id));
     }
 
     /**
