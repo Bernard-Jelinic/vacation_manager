@@ -58,9 +58,8 @@
             /*Echo.channel('notification.' + {{ auth()->user()->id }})*/
             Echo.private('notification.' + {{ auth()->user()->id }})
                 .listen('.vacation-event', function(data) {
-                    // alert( data )
-                    // console.log( 'data', data )
                     this.fetchNotification()
+                    sidebarNotification(data);
                 })
         @endif
 
@@ -73,7 +72,6 @@
                 dataType: "json",
                 success: function(response){
                     navbarNotification(response);
-                    sidebarNotification(response);
                 }
             })
         }
@@ -81,16 +79,12 @@
         function navbarNotification(response){
 
             let notificationNav = `
-            
-            <a data-toggle="dropdown" class="dropdown-toggle" id="notification">
-                ${(response.count > 0) ? `<i class="fa fa-bell"></i><span class="badge bg-theme" id="notification_num">${response.count}</span>` : `<i class="fa fa-bell-o"></i>`}
-            </a>
-            
-            <ul class="dropdown-menu extended inbox">
-                <div class="notify-arrow notify-arrow-green"></div>
-
-                ${(response.count >= 0) ? `<li><p class="green">You have ${response.count} pending vacations</p></li>` : `<li><p class="green">You don't have pending vacations</p></li>`}
-
+                <a data-toggle="dropdown" class="dropdown-toggle" id="notification">
+                    ${(response.count > 0) ? `<i class="fa fa-bell"></i><span class="badge bg-theme" id="notification_num">${response.count}</span>` : `<i class="fa fa-bell-o"></i>`}
+                </a>
+                <ul class="dropdown-menu extended inbox">
+                    <div class="notify-arrow notify-arrow-green"></div>
+                    ${(response.count >= 0) ? `<li><p class="green">You have ${response.count} pending vacations</p></li>` : `<li><p class="green">You don't have pending vacations</p></li>`}
             `;
             if (response.count >= 0) {
                 response.notifications.forEach(element => {
@@ -110,55 +104,43 @@
                         </a>
                     </li>
                 `;
-
-            });
+                });
             }
 
             notificationNav += `
-            
                 <li>
                     <a href="{{ route('vacation' , 'all') }}">See all vacations</a>
                 </li>
             </ul>
-
             `;
-
             $('#header_inbox_bar').html(notificationNav);
         }
 
         function sidebarNotification(response){
-            //  because it doesn't needs to be displayed if there is no notifications
-            if (response.notifications.length > 0) {
-                
-                let notificationWindow = '<h3>NOTIFICATIONS</h3>';
-
-                response.notifications.forEach(element => {
-
-                    const str = element.created_at;
-                    const [dateValue, timeValue] = str.split('T');
-
-                    notificationWindow += `
-                        <a href="{{ url('vacation/${element.data.vacation_id}/edit') }}">
-                            <div class="desc">
-                                <div class="details">
-                                    <p style="font-size:12px;color:black;">${element.data.data}</p>
-                                    <p style="font-size:12px;color:black;">created ${dateValue}</p>
-                                </div>
+                let notificationWindow =`
+                <div class="p-3 mb-2 bg-primary text-white" aria-live="polite" aria-atomic="true" style="padding: 10px">
+                    <div>
+                        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <svg width="20" height="20" class="mr-2" viewBox="0 0 24 24">
+                                    <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z" fill="#ccc"></path>
+                                </svg>
+                                <strong class="mr-auto">${response.message}</strong>
+                                <small>just now</small>
                             </div>
-                        </a>
-                    `;
+                        </div>
+                    </div>
+                </div>
+                `;
 
-                });
-
-                $('#notification-box').addClass("col-lg-3 ds").html(notificationWindow);
-            }
-
+                $('#notification-box').html(notificationWindow);
+                
             setTimeout(() => {
-            try {
-                $('#notification-box').removeClass("col-lg-3 ds").text('');
-            } catch (error) {
-                //console.log(error);
-            }
+                try {
+                    $('#notification-box').removeClass("col-lg-3 ds").text('');
+                } catch (error) {
+                    //console.log(error);
+                }
             }, 4000);
         }
 

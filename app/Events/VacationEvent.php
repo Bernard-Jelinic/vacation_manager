@@ -15,15 +15,17 @@ class VacationEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user_id;
+    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user_id)
+    public function __construct($user_id, $message)
     {
         $this->user_id = $user_id;
+        $this->message = $message;
     }
 
     /**
@@ -41,5 +43,14 @@ class VacationEvent implements ShouldBroadcast
     public function broadcastAs()
     {
         return 'vacation-event';
+    }
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return ['message' => $this->message];
     }
 }

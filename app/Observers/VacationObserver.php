@@ -27,7 +27,7 @@ class VacationObserver
                 $text = 'Employee ' . auth()->user()->name . ' send request for vacation';
             }
             Notification::send($ancestor, new VacationNotification($text, $vacation->id));
-            event(new VacationEvent($ancestor->id));
+            event(new VacationEvent($ancestor->id, $text));
         }
 
     }
@@ -46,7 +46,7 @@ class VacationObserver
             $text = 'Manager ' . auth()->user()->name . ' ' . $vacation->status->name . ' your request';
         }
         Notification::send($vacation->user, new VacationNotification($text, $vacation->id));
-        event(new VacationEvent($vacation->user->id));
+        event(new VacationEvent($vacation->user->id, $text));
     }
 
     /**
