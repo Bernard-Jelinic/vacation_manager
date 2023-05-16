@@ -18,10 +18,7 @@ class VacationFactory extends Factory
     {
         return [
             'depart' => $this->faker->date(),
-            'return' => $this->faker->date(),
-            'admin_read' => $this->faker->boolean(),
-            'manager_read' => $this->faker->boolean(),
-            'employee_read' => $this->faker->boolean(),
+            'return' => $this->faker->date()
         ];
     }
 }

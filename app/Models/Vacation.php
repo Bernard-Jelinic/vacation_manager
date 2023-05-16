@@ -20,9 +20,6 @@ class Vacation extends Model
         'created_at',
         'updated_at',
         'status_id',
-        'admin_read',
-        'manager_read',
-        'employee_read',
         'user_id'
     ];
 

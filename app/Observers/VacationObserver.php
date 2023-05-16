@@ -18,16 +18,18 @@ class VacationObserver
     // public function created(Vacation $vacation)
     public function created(Vacation $vacation)
     {
-        $ancestors = auth()->user()->ancestors;
+        if (auth()->user() !== null ) {
+            $ancestors = auth()->user()->ancestors;
 
-        foreach ( $ancestors as $ancestor ) {
-            if ($ancestor->role == 'admin') {
-                $text = 'Employee ' . auth()->user()->name . ' from department ' . auth()->user()->department->name .  ' send request for vacation';
-            } else{
-                $text = 'Employee ' . auth()->user()->name . ' send request for vacation';
+            foreach ( $ancestors as $ancestor ) {
+                if ($ancestor->role == 'admin') {
+                    $text = 'Employee ' . auth()->user()->name . ' from department ' . auth()->user()->department->name .  ' send request for vacation';
+                } else{
+                    $text = 'Employee ' . auth()->user()->name . ' send request for vacation';
+                }
+                Notification::send($ancestor, new VacationNotification($text, $vacation->id));
+                event(new VacationEvent($ancestor->id, $text));
             }
-            Notification::send($ancestor, new VacationNotification($text, $vacation->id));
-            event(new VacationEvent($ancestor->id, $text));
         }
 
     }

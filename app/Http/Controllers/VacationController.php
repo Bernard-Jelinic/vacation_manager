@@ -17,8 +17,6 @@ class VacationController extends Controller
     {
         if ($display == 'all') {
 
-            Vacation::query()->update(['' . Auth::user()->role . '_read' => 1]);
-
             $vacations = Vacation::with('user')->get();
         } else {
             if ($display == 'pending') {
@@ -28,8 +26,6 @@ class VacationController extends Controller
             } elseif ($display == 'notapproved') {
                 $get_status = 3;
             }
-
-            Vacation::where('status_id', $get_status)->update(['' . Auth::user()->role . '_read' => 1]);
             
             $vacations = Vacation::with('user')->where('status_id', $get_status)->get();
         }
@@ -72,9 +68,6 @@ class VacationController extends Controller
             'created_at' => $date,
             'updated_at' => $date,
             'status_id' => 1,
-            'admin_read' => 0,
-            'manager_read' => 0,
-            'employee_read' => 0,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -101,7 +94,6 @@ class VacationController extends Controller
      */
     public function edit(Vacation $vacation)
     {
-        $vacation->update(['' . Auth::user()->role . '_read' => 1]);
         return view('vacation.edit', compact('vacation'));
     }
 

@@ -20,10 +20,6 @@ return new class extends Migration
 
             $table->unsignedInteger('status_id')->nullable();
 
-            $table->integer('admin_read')->nullable();
-            $table->integer('manager_read')->nullable();
-            $table->integer('employee_read')->nullable();
-
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
