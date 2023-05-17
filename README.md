@@ -55,7 +55,7 @@ composer install
 ### Create a copy of your .env file
 
 ```
-copy .env.example .env
+copy .env.example .env or cp .env.example .env
 ```
 
 ### Generate an app encryption key
