@@ -31,8 +31,9 @@ Route::group(['middleware' => ['auth', 'verified']], function(){
 
     Route::resource('department', DepartmentController::class)->middleware('can:admin_area');
 
+    Route::resource('vacation', VacationController::class)->only(['edit']);
     Route::resource('vacation', VacationController::class)->only(['create', 'store'])->middleware('can:employee_area');
-    Route::resource('vacation', VacationController::class)->only(['edit', 'update'])->middleware('can:admin_manager_area');
+    Route::resource('vacation', VacationController::class)->only(['update'])->middleware('can:admin_manager_area');
 
     Route::get('vacation/{display}', [VacationController::class , 'index'])->name('vacation');
 });
