@@ -15,7 +15,7 @@ class VacationApiController extends Controller
      */
     public function index()
     {
-        $notifications = auth()->user()->notifications;
+        $notifications = auth()->user()->unreadNotifications()->get();
 
         //to display notification number
         $counter = count($notifications);

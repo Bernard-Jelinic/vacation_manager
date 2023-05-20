@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class VacationController extends Controller
 {
@@ -94,6 +95,8 @@ class VacationController extends Controller
      */
     public function edit(Vacation $vacation)
     {
+        auth()->user()->unreadNotifications()->where('data', 'LIKE', '%"vacation_id":'.$vacation->id.'%')->get()->markAsRead();
+
         return view('vacation.edit', compact('vacation'));
     }
 
