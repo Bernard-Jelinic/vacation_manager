@@ -83,35 +83,24 @@
                     ${(response.count > 0) ? `<i class="fa fa-bell"></i><span class="badge bg-theme" id="notification_num">${response.count}</span>` : `<i class="fa fa-bell-o"></i>`}
                 </a>
                 <ul class="dropdown-menu extended inbox">
-                    <div class="notify-arrow notify-arrow-green"></div>
                     ${(response.count >= 0) ? `<li><p class="green">You have ${response.count} pending vacations</p></li>` : `<li><p class="green">You don't have pending vacations</p></li>`}
             `;
             if (response.count >= 0) {
                 response.notifications.forEach(element => {
 
-                const str = element.created_at;
-                const [dateValue, timeValue] = str.split('T');
-
                 notificationNav += `
                     <li>
-                        <a href="{{ url('vacation/${element.data.vacation_id}/edit') }}">
-                            <span class="subject">
-                                <span class="from">${element.data.data}</span>
-                            </span>
-                            <span class="subject">
-                                <span class="from">created ${dateValue}</span>
-                            </span>
-                        </a>
+                        <p style="background-color: white; cursor: pointer;" onmouseover="this.style.backgroundColor='#F0F0F0'" onmouseout="this.style.backgroundColor='white'" onclick="window.location.href='{{ url('vacation/${element.data.vacation_id}/edit') }}'">${element.data.data}</p>
                     </li>
                 `;
                 });
             }
 
             notificationNav += `
-                <li>
-                    <a href="{{ route('vacation' , 'all') }}">See all vacations</a>
-                </li>
-            </ul>
+                    <li>
+                        <a href="{{ route('vacation' , 'all') }}">See all vacations</a>
+                    </li>
+                </ul>
             `;
             $('#header_inbox_bar').html(notificationNav);
         }
