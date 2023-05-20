@@ -33,6 +33,7 @@
 
     <!-- END BOOTSTRAP -->
 
+    @if (auth()->user())
     {{-- START PUSHER --}}
     <script src="{{ asset('assets/js/pusher.min.js') }}"></script>
     <script src="{{ asset('assets/js/echo.iife.js') }}"></script>
@@ -41,7 +42,6 @@
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        @if (auth()->user())
             window.Echo = new Echo({
                 broadcaster: 'pusher',
                 key: '{{ env('PUSHER_APP_KEY') }}',
@@ -61,7 +61,6 @@
                     this.fetchNotification()
                     sidebarNotification(data);
                 })
-        @endif
 
         fetchNotification()
 
@@ -135,6 +134,7 @@
 
     </script>
     {{-- END PUSHER --}}
+    @endif
 
 </head>
 <body>
