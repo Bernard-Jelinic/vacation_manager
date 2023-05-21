@@ -33,7 +33,7 @@
                 
                         @csrf
                         @method('PUT')
-                        <select name="status_id" class="form-control">
+                        <select name="status_id" class="form-control" @can('employee_area') disabled @endcan>
                             @if ($vacation->status_id == 1)
                                 <option value="1"selected>Waiting for approval</option>
                                 <option value="2">Approved</option>
@@ -52,7 +52,9 @@
                 </div>
             @endif
 
-            <input class="btn btn-primary" type="submit" value="Change">
+            @can('admin_manager_area')
+                <input class="btn btn-primary" type="submit" value="Change">
+            @endcan
 
         </form>
     </div>
