@@ -39,6 +39,12 @@
 
         </table>
 
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {{ $users->onEachSide(1)->links() }}
+            </div>
+        </div>
+
     </div>
 
 @endsection
