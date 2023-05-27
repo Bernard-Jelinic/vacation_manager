@@ -115,7 +115,7 @@
                             <li><a href="{{route('vacation', 'all')}}">All Vacations</a></li>
                             <li><a href="{{route('vacation', 'pending')}}">Pending Vacations</a></li>
                             <li><a href="{{route('vacation', 'approved')}}">Approved Vacations</a></li>
-                            <li><a href="{{route('vacation', 'notapproved')}}">Not Approved Vacations</a></li>
+                            <li><a href="{{route('vacation', 'deny')}}">Deny Vacations</a></li>
                         </ul>
                     </li>
 

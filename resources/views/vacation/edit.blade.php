@@ -37,15 +37,15 @@
                             @if ($vacation->status_id == 1)
                                 <option value="1"selected>Waiting for approval</option>
                                 <option value="2">Approved</option>
-                                <option value="3">Not Approved</option>
+                                <option value="3">Deny</option>
                             @elseif ($vacation->status_id == 2)
                                 <option value="1">Waiting for approval</option>
                                 <option value="2" selected>Approved</option>
-                                <option value="3">Not Approved</option>
+                                <option value="3">Deny</option>
                             @else
                                 <option value="1">Waiting for approval</option>
                                 <option value="2">Approved</option>
-                                <option value="3" selected>Not Approved</option>
+                                <option value="3" selected>Deny</option>
                             @endif
                         </select>
                             

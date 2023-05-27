@@ -4,15 +4,7 @@
     
     <div class="container-fluid">
         <br>
-            @if ($display == 'pending')
-                <h3>Pending Vacations</h3><br>
-            @elseif ($display == 'approved')
-                <h3>Approved Vacations</h3><br>
-            @elseif ($display == 'not approved')
-                <h3>Not Approved Vacations</h3><br>
-            @elseif ($display = 'all')
-                <h3>Vacations History</h3><br>
-            @endif
+            <h3>{{ $display_text }}</h3><br>
 
         <table class="table table-striped table-hover">
 
@@ -38,7 +30,7 @@
                                 <span style="color: green">Approved</span>
                                 
                             @elseif ($vacation->status_id == 3)
-                                <span style="color: red">Not Approved</span>
+                                <span style="color: red">Deny</span>
                             @endif
 
                         </td>
@@ -56,6 +48,12 @@
             </tbody>
 
         </table>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {{ $vacations->onEachSide(1)->links() }}
+            </div>
+        </div>
 
     </div>
 

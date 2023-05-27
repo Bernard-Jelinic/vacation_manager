@@ -25,7 +25,7 @@ class VacationStatusSeeder extends Seeder
         ]);
         VacationStatus::create([
             'id' => 3,
-            'name' => 'Notapproved'
+            'name' => 'Deny'
         ]);
     }
 }

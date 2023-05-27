@@ -2,36 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vacation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use App\Models\Vacation;
+use App\Models\VacationStatus;
 
 class VacationController extends Controller
 {
+    private function getModelClassName(): string
+    {
+        return Vacation::class;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $display)
+    public function index(Request $request, $status_request)
     {
-        if ($display == 'all') {
-
-            $vacations = Vacation::with('user')->get();
-        } else {
-            if ($display == 'pending') {
-                $get_status = 1;
-            } elseif ($display == 'approved') {
-                $get_status = 2;
-            } elseif ($display == 'notapproved') {
-                $get_status = 3;
-            }
-            
-            $vacations = Vacation::with('user')->where('status_id', $get_status)->get();
+        $vacations = $this->getModelClassName()::query();
+        $display_text = '';
+        if ($status_request == 'all') {
+            $status = $status_request;
+            $display_text = 'Vacations History';
+        } else{
+            $status = VacationStatus::where('name', $status_request)->first();
+            $vacations = $vacations->where('status_id', $status->id);
+            $display_text = $status->name . ' Vacations';
         }
+        $vacations = $vacations->paginate(10);
 
-        return view('vacation.index', compact('vacations', 'display'));
+        return view('vacation.index', compact('vacations', 'display_text'));
     }
 
     /**
@@ -61,15 +64,9 @@ class VacationController extends Controller
             'return' => 'required',
         ]);
 
-        $date = date("Y-m-d H:i:s");
-
-        Vacation::create([
+        $this->getModelClassName()::create([
             'depart' => $depart,
-            'return' => $return,
-            'created_at' => $date,
-            'updated_at' => $date,
-            'status_id' => 1,
-            'user_id' => Auth::user()->id,
+            'return' => $return
         ]);
 
         return redirect()->route('vacation', 'all')

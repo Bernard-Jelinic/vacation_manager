@@ -10,12 +10,23 @@ use Illuminate\Support\Facades\Notification;
 class VacationObserver
 {
     /**
+     * Handle the Vacation "creating" event.
+     *
+     * @param  \App\Models\Vacation  $vacation
+     * @return void
+     */
+    public function creating(Vacation $vacation)
+    {
+        $vacation->status_id = 1;
+        $vacation->user_id = auth()->user()->id;
+    }
+
+    /**
      * Handle the Vacation "created" event.
      *
      * @param  \App\Models\Vacation  $vacation
      * @return void
      */
-    // public function created(Vacation $vacation)
     public function created(Vacation $vacation)
     {
         if (auth()->user() !== null ) {
