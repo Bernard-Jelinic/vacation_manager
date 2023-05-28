@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::middleware('guest')->get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 Route::group(['middleware' => ['auth', 'verified']], function(){
     Route::get('/dashboard', function () {
