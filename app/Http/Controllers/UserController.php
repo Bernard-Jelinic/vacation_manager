@@ -46,7 +46,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-
         $user = $request->only('name', 'last_name', 'role', 'department_id', 'email', 'email_verified_at' ,'password', 'remember_token');
 
         $user['email_verified_at'] = now();
