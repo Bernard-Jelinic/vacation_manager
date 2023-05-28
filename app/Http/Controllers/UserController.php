@@ -11,9 +11,9 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
-    private function getModelClassName(): string
+    public function __construct()
     {
-        return User::class;
+        $this->model = User::class;
     }
 
     /**
@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->getModelClassName()::paginate(10);
+        $users = $this->model::paginate(10);
         return view('user.index', compact('users'));
     }
 
@@ -53,7 +53,7 @@ class UserController extends Controller
         $user['password'] = Hash::make($user['password']);
         $user['remember_token'] = Str::random(10);
 
-        $this->getModelClassName()::create($user);
+        $this->model::create($user);
         return redirect()->route('user.index')
                     ->with('success', 'User created successfully');
     }

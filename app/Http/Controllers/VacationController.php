@@ -10,9 +10,9 @@ use App\Models\VacationStatus;
 
 class VacationController extends Controller
 {
-    private function getModelClassName(): string
+    public function __construct()
     {
-        return Vacation::class;
+        $this->model = Vacation::class;
     }
 
     /**
@@ -22,7 +22,7 @@ class VacationController extends Controller
      */
     public function index(Request $request, $status_request)
     {
-        $vacations = $this->getModelClassName()::query();
+        $vacations = $this->model::query();
         $display_text = '';
         if ($status_request == 'all') {
             $status = $status_request;
@@ -64,7 +64,7 @@ class VacationController extends Controller
             'return' => 'required',
         ]);
 
-        $this->getModelClassName()::create([
+        $this->model::create([
             'depart' => $depart,
             'return' => $return
         ]);
