@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->model = Department::class;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,33 +20,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments_from_db = Department::all();
-
-        $managers = User::all()->where('role', 'manager');
-
-        $departments = array();
-
-        foreach ($departments_from_db as $department) {
-
-            $data = array();
-            $data = (object) $data;
-
-            $data->id = $department->id;
-            $data->department_name = $department->name;
-
-            $managers_full_name = "Department doesn't have manager";
-
-            foreach ($managers as $manager) {
-
-                if ($department->id == $manager->department_id) {
-                    $managers_full_name = $manager->name . ' ' . $manager->last_name;
-                }
-
-                $data->manager_name = $managers_full_name;
-            }
-
-            $departments[] = $data;
-        }
+        $departments = $this->model::all();
 
         return view('department.index', compact('departments'));
     }

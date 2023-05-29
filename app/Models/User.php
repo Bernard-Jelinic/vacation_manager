@@ -51,6 +51,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $append = ['full_name'];
+
+    // // ADDITIONAL ATTRIBUTES
+    public function getFullNameAttribute()
+    {
+        return $this->name . " " . $this->last_name;
+    }
+
     public function department()
     {
         return $this->belongsTo(Department::class);

@@ -18,15 +18,12 @@
 
                     @foreach ($departments as $department)
 
-                        <tr><td>{{$department->department_name}}</td><td>{{$department->manager_name}}</td>
-                        {{-- <tr><td>{{$department['department_name']}}</td><td>{{$department['manager_name']}}</td> --}}
+                        <tr><td>{{$department->name}}</td><td>{{ isset($department->manager->full_name) ? $department->manager->full_name : $department->manager }}</td>
                             <td>
                                 <a href="{{ route('department.edit', [$department->id]) }}">
-                                    {{-- <a href="{{ route('editdepartment', [$department['id']]) }}"> --}}
                                     <button class="btn-sm btn btn-success"><i class="fa fa-edit"></i> Edit</button>
                                 </a>
                                 <form action="{{ route('department.destroy', [$department->id]) }}" method="post">
-                                {{-- <form action="{{ route('deletedepartment', [$department['id']]) }}" method="post"> --}}
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-sm btn btn-warning"><i class="fa fa-times"></i> Delete</button>
