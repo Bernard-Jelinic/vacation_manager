@@ -126,7 +126,7 @@
 
         <div class="row">
             <div class="col-md-12 text-center">
-                {{ $vacations->onEachSide(1)->links() }}
+                {{ $vacations->appends(request()->except('page'))->onEachSide(1)->links() }}
             </div>
         </div>
 
