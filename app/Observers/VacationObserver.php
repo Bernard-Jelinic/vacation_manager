@@ -17,8 +17,10 @@ class VacationObserver
      */
     public function creating(Vacation $vacation)
     {
-        $vacation->status_id = 1;
-        $vacation->user_id = auth()->user()->id;
+        if (auth()->user() !== null ) {
+            $vacation->status_id = 1;
+            $vacation->user_id = auth()->user()->id;
+        }
     }
 
     /**
