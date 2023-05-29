@@ -24,6 +24,39 @@ class VacationController extends Controller
     {
         $vacations = $this->model::query();
         $display_text = '';
+
+        if ( isset($request->name) ) {
+            $keyword = $request->name; // The search keyword
+            $vacations->whereHas('user', function ($query) use ($keyword) {
+                $query->where('name', 'like', "%{$keyword}%");
+            });
+        }
+        if ( isset($request->last_name) ) {
+            $keyword = $request->last_name; // The search keyword
+            $vacations->whereHas('user', function ($query) use ($keyword) {
+                $query->where('last_name', 'like', "%{$keyword}%");
+            });
+        }
+        if ( isset($request->depart) ) {
+            $keyword = $request->depart; // The search keyword
+            $vacations->whereHas('user', function ($query) use ($keyword) {
+                $query->where('depart', 'like', "%{$keyword}%");
+            });
+        }
+        if ( isset($request->return) ) {
+            $keyword = $request->return; // The search keyword
+            $vacations->whereHas('user', function ($query) use ($keyword) {
+                $query->where('return', 'like', "%{$keyword}%");
+            });
+        }
+        if ( isset($request->created) ) {
+            $keyword = $request->created; // The search keyword
+            $vacations->where('created_at', 'like', "%{$keyword}%");
+        }
+        if ( isset($request->status_id) && $request->status_id != -1 ) {
+            $vacations->where('status_id', $request->status_id);
+        }
+
         if ($status_request == 'all') {
             $status = $status_request;
             $display_text = 'Vacations History';
