@@ -20,7 +20,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = $this->model::all();
+        $departments = $this->model::paginate(10);
 
         return view('department.index', compact('departments'));
     }
