@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Support\Str;
@@ -21,10 +22,33 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->model::paginate(10);
-        return view('user.index', compact('users'));
+        $users = $this->model::query();
+
+        if ( isset($request->name) ) {
+            $keyword = $request->name; // The search keyword
+            $users = $users->where('name', 'like', "%{$keyword}%");
+        }
+        if ( isset($request->last_name) ) {
+            $keyword = $request->last_name; // The search keyword
+            $users = $users->where('last_name', 'like', "%{$keyword}%");
+        }
+        if ( isset($request->role) ) {
+            $users = $users->where('role', $request->role);
+        }
+        if ( isset($request->department_id) ) {
+            $users = $users->where('department_id', $request->department_id);
+        }
+        if ( isset($request->email) ) {
+            $keyword = $request->email; // The search keyword
+            $users->where('email', 'like', "%{$keyword}%");
+        }
+
+        $users = $users->paginate(10);
+        $departments = Department::all();
+        
+        return view('user.index', compact('users', 'departments'));
     }
 
     /**
